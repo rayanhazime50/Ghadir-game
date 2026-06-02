@@ -249,6 +249,9 @@ z-index:-1;
 </head>
 
 <body>
+<audio id="bgMusic" loop>
+  <source src="ali.mp3" type="audio/mpeg">
+</audio>
 
 <!-- START -->
 <div id="start" class="start">
@@ -283,6 +286,9 @@ z-index:-1;
 
 <h2 id="title"></h2>
 <div id="content"></div>
+<button id="musicBtn" onclick="toggleMusic()">
+🔊
+</button>
 
 </div>
 
@@ -380,6 +386,7 @@ player=document.getElementById("player").value.trim();
 if(!player){alert("اكتبي الاسم");return;}
 
 startTime=Date.now();
+document.getElementById("bgMusic").play();
 
 document.getElementById("start").classList.add("hidden");
 document.getElementById("game").classList.remove("hidden");
@@ -615,6 +622,24 @@ window.dragPicked=[];
 updateDrop();
 
 };
+
+window.toggleMusic=function(){
+
+const music=document.getElementById("bgMusic");
+const btn=document.getElementById("musicBtn");
+
+if(music.paused){
+music.play();
+btn.innerHTML="🔊";
+}else{
+music.pause();
+btn.innerHTML="🔇";
+}
+
+}
+const music=document.getElementById("bgMusic");
+music.volume=0.2;
+music.play();
 
 window.checkDrag=function(){
 
