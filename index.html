@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>بطولة الغدير</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Tahoma;
+background:linear-gradient(135deg,#1c0033,#4a148c,#7b1fa2);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+color:#fff;
+overflow:hidden;
+}
+body{
+background-size:300% 300%;
+animation:bgMove 12s ease infinite;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+/* ===== START ===== */
+.start{
+text-align:center;
+padding:20px;
+animation:fade 0.8s ease;
+}
+
+.title{
+font-size:36px;
+font-weight:bold;
+margin-bottom:10px;
+color:#fff;
+}
+
+.subtitle{
+opacity:0.9;
+margin-bottom:10px;
+font-size:14px;
+}
+
+.desc{
+max-width:400px;
+margin:auto;
+font-size:13px;
+opacity:0.85;
+line-height:1.6;
+margin-bottom:20px;
+}
+
+input{
+width:260px;
+padding:12px;
+border:none;
+border-radius:12px;
+text-align:center;
+outline:none;
+margin-bottom:15px;
+}
+
+button{
+padding:12px 24px;
+border:none;
+border-radius:50px;
+cursor:pointer;
+font-size:15px;
+font-weight:bold;
+
+background:
+linear-gradient(
+135deg,
+#1b0033,
+#4a148c,
+#7b1fa2,
+#ab47bc
+);
+
+color:white;
+
+box-shadow:
+0 6px 15px rgba(0,0,0,.25);
+
+transition:.25s;
+}
+
+button:hover{
+transform:
+translateY(-2px)
+scale(1.03);
+
+box-shadow:
+0 10px 20px rgba(0,0,0,.35);
+}
+
+.hidden{display:none !important;}
+
+.logoWrap{
+display:inline-block;
+padding:12px;
+background:rgba(255,255,255,.08);
+border-radius:24px;
+margin-bottom:20px;
+}
+
+.logoImg{
+width:260px;
+max-width:75vw;
+display:block;
+filter:drop-shadow(0 8px 20px rgba(0,0,0,.35));
+}
+
+.finishLogo{
+width:180px;
+margin-bottom:15px;
+filter:drop-shadow(0 8px 20px rgba(0,0,0,.35));
+}
+
+/* ===== GAME ===== */
+.card{
+width:95%;
+max-width:700px;
+
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(18px);
+border-radius:25px;
+padding:20px;
+
+min-height:auto;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+}
+.topBar{
+display:flex;
+justify-content:space-between;
+margin-bottom:15px;
+font-weight:bold;
+}
+
+.option{
+display:block;
+width:100%;
+margin:10px auto;
+padding:14px;
+
+background:rgba(255,255,255,.12);
+
+border:1px solid rgba(255,255,255,.18);
+
+border-radius:18px;
+
+color:white;
+
+font-size:16px;
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.2s;
+}
+
+.option:hover{
+background:rgba(255,255,255,.22);
+transform:translateY(-2px);
+}
+/* MEMORY */
+.memoryGrid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
+}
+
+.memoryCard{
+height:70px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:rgba(255,255,255,0.12);
+border-radius:12px;
+cursor:pointer;
+font-size:18px;
+}
+
+/* DRAG */
+.dragWord{
+display:inline-block;
+padding:8px 10px;
+margin:4px;
+border-radius:10px;
+background:rgba(255,255,255,0.15);
+cursor:pointer;
+}
+
+.drop{
+min-height:60px;
+border:2px dashed rgba(255,255,255,0.6);
+border-radius:12px;
+padding:10px;
+margin-top:10px;
+}
+
+/* ===== FINISH ===== */
+.finish{
+text-align:center;
+animation:fade 0.6s ease;
+}
+
+.big{
+font-size:28px;
+margin-bottom:10px;
+}
+
+.small{
+opacity:0.9;
+font-size:14px;
+line-height:1.7;
+}
+
+@keyframes fade{
+from{opacity:0; transform:translateY(10px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+body::before{
+content:"";
+position:fixed;
+inset:0;
+background:url('Logo.jpg') center center no-repeat;
+background-size:450px;
+opacity:.04;
+pointer-events:none;
+z-index:-1;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- START -->
+<div id="start" class="start">
+
+<div class="logoWrap">
+<img src="Logo.jpeg" class="logoImg" alt="شعار الكشافة">
+</div>
+
+<div class="title">💜 بطولة عيد الغدير</div><div class="subtitle">✨ اختبار معرفي تفاعلي ✨</div>
+
+<div class="desc">
+🎮 اللعبة فيها أسئلة + توصيل كلمات + ميموري  
+<br><br>🧠 ركّزي وكمّلي كل المراحل بسرعة  
+<br><br>🏆لتشوفي مركزك بالنهاية 
+</div>
+
+<input id="player" placeholder="اكتبي اسمك">
+
+<br>
+
+<button onclick="startGame()">🚀 ابدأي التحدي</button>
+
+</div>
+
+<!-- GAME -->
+<div id="game" class="card hidden">
+
+<div class="topBar">
+<div>⏱️ <span id="timer">05:00</span></div>
+<div>⭐ <span id="stars">0</span></div>
+</div>
+
+<h2 id="title"></h2>
+<div id="content"></div>
+
+</div>
+
+<!-- FINISH -->
+<div id="finish" class="card hidden finish">
+
+<img src="Logo.jpeg" class="finishLogo" alt="شعار الكشافة">
+
+<div class="big">
+🎉 مبروك انتهت اللعبة 🎉
+</div>
+<div class="small">
+ مبارك عليكم عيد الغدير  💜
+<br>
+🌿 جعلنا الله وإياكم من المتمسكين بولاية أمير المؤمنين (ع)
+</div>
+
+<br>
+
+<div id="result"></div>
+
+<div style="margin-top:25px">
+
+<button onclick="location.reload()">
+🔄اعادة اللعب
+</button>
+<button onclick="exitGame()">
+🏠 خروج
+</button>
+
+</div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, query, orderBy }
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyC-WhGyDx9gaxykhHr7rw2LCglBc0PUiH4",
+authDomain: "al-ghadeer-20e5a.firebaseapp.com",
+projectId: "al-ghadeer-20e5a",
+storageBucket: "al-ghadeer-20e5a.firebasestorage.app",
+messagingSenderId: "572914065636",
+appId: "1:572914065636:web:3180e3539ce79ac071ccf1"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+let stage=0;
+let stars=0;
+let timeLeft=300;
+let timer;
+let player="";
+let startTime;
+
+/* ================= STAGES ================= */
+const stages=[
+
+{type:"mcq",q:"كيف كان الإمام علي يعامل أصحابه؟",o:["محبة واحترام","تكبر","قسوة"],c:0},
+
+{type:"tf",q:"عيد الغدير هو 18 ذو الحجة",c:true},
+
+{type:"mcq",q:"في أي معركة قال: أنا مدينة العلم؟",o:["خيبر","بدر","أحد"],c:0},
+
+{type:"memory",id:1},
+
+{type:"mcq",q:"ما معنى عيد الغدير؟",o:["اكتمال الدين","بداية حرب","هجرة"],c:0},
+
+{type:"drag",id:1},
+
+{type:"mcq",q:"أين حدثت حادثة الغدير؟",o:["غدير خم","النجف الأشرف","الكوفة"],c:0},
+
+{type:"memory",id:2},
+
+{type:"mcq",q:"صفة من صفات الإمام علي(ع):",o:[" شجاعة","ظلم","أنانية"],c:0},
+
+{type:"drag",id:2},
+
+{type:"tf",q:"صوم يوم الغدير مستحب",c:true},
+
+{type:"mcq",q:" عمر الإمام علي في يوم الغدير:",o:[" سنة 33"," سنة 60"," سنة 50"],c:0},
+
+{type:"mcq",q:"لا فتى إلا علي…",o:["ولا سيف إلا ذو الفقار","ولا سيف الا فاطمة"],c:0},
+
+{type:"mcq",q:"أنا مدينة العلم…",o:["وعلي بابها","وعلي أساسها"],c:0}
+
+
+];
+
+/* ================= START ================= */
+window.startGame=function(){
+player=document.getElementById("player").value.trim();
+if(!player){alert("اكتبي الاسم");return;}
+
+startTime=Date.now();
+
+document.getElementById("start").classList.add("hidden");
+document.getElementById("game").classList.remove("hidden");
+
+timer=setInterval(()=>{
+timeLeft--;
+let m=Math.floor(timeLeft/60);
+let s=timeLeft%60;
+document.getElementById("timer").textContent=`${m}:${String(s).padStart(2,"0")}`;
+if(timeLeft<=0) finish();
+},1000);
+
+load();
+};
+
+function star(){
+stars++;
+document.getElementById("stars").textContent=stars;
+}
+
+/* ================= LOAD ================= */
+function load(){
+if(stage>=stages.length) return finish();
+
+let st=stages[stage];
+let c=document.getElementById("content");
+
+document.getElementById("title").textContent="السؤال "+(stage+1);
+
+/* MCQ */
+if(st.type==="mcq"){
+c.innerHTML=`
+<h3>${st.q}</h3>
+${st.o.map((x,i)=>`
+<button class="option" onclick="ans(${i})">${x}</button>
+`).join("")}
+`;
+}
+
+/* TF */
+else if(st.type==="tf"){
+c.innerHTML=`
+<h3>${st.q}</h3>
+<button onclick="tf(true)">صح</button>
+<button onclick="tf(false)">خطأ</button>
+`;
+}
+
+/* MEMORY */
+else if(st.type==="memory"){
+
+window.open=[];
+window.matched=0;
+
+let vals;
+
+if(st.id===1){
+vals=["غدير","غدير","خم","خم","ولاية","ولاية","نور","نور"];
+}
+
+if(st.id===2){
+vals=[
+"علي","علي",
+"أمير المؤمنين","أمير المؤمنين",
+"أبو تراب","أبو تراب",
+"حيدر","حيدر"
+];
+}
+
+window.mem=vals.sort(()=>Math.random()-0.5);
+
+window.total=vals.length/2;
+
+c.innerHTML=`
+<h3>🧠 طابق البطاقات</h3>
+
+<div class="memoryGrid">
+${window.mem.map((_,i)=>`
+<div class="memoryCard" onclick="flip(${i},this)">?</div>
+`).join("")}
+</div>
+`;
+}
+
+/* DRAG (FIXED) */
+else if(st.type==="drag"){
+
+window.dragPicked=[];
+
+let words;
+
+if(st.id===1){
+words=["من","كنت","مولاه","فهذا","علي","مولاه"];
+}
+
+if(st.id===2){
+words=[
+"اليوم","أكملت","لكم","دينكم","وأتممت","عليكم","نعمتي","ورضيت","لكم","الإسلام","دينا"
+];
+}
+
+window.correct=st.id===1
+? ["من","كنت","مولاه","فهذا","علي","مولاه"]
+: ["اليوم","أكملت","لكم","دينكم","وأتممت","عليكم","نعمتي","ورضيت","لكم","الإسلام","دينا"];
+
+c.innerHTML=`
+<h3>🧩 رتّبي الكلمات</h3>
+
+<div>
+${words.sort(()=>Math.random()-0.5).map(w=>`
+<span class="dragWord" onclick="pick('${w}',event)">${w}</span>
+`).join("")}
+</div>
+
+<div id="drop" class="drop"></div>
+
+
+<div style="margin-top:15px">
+
+<button onclick="checkDrag()">
+✅ تأكدي
+</button>
+
+<button onclick="undoLast()">
+↩ حذف 
+</button>
+
+<button onclick="resetDrag()">
+ إعادة 🔄
+</button>
+
+</div>
+`;
+}
+}
+
+/* ================= ANSWERS ================= */
+window.ans=function(i){
+if(i===stages[stage].c) star();
+stage++;
+load();
+};
+
+window.tf=function(v){
+if(v===stages[stage].c) star();
+stage++;
+load();
+};
+
+/* ================= MEMORY ================= */
+window.flip=function(i,el){
+if(el.classList.contains("done")) return;
+
+el.textContent=window.mem[i];
+window.open.push({i,el});
+
+if(window.open.length===2){
+setTimeout(()=>{
+let a=window.open[0], b=window.open[1];
+
+if(window.mem[a.i]===window.mem[b.i]){
+a.el.classList.add("done");
+b.el.classList.add("done");
+star();
+window.matched++;
+if(window.matched===window.total){
+stage++;
+load();
+}
+}else{
+a.el.textContent="?";
+b.el.textContent="?";
+}
+window.open=[];
+},400);
+}
+};
+
+/* ================= DRAG ================= */
+
+window.pick=function(w,e){
+
+if(e.target.dataset.used==="1") return;
+
+e.target.dataset.used="1";
+e.target.style.opacity="0.3";
+e.target.style.pointerEvents="none";
+
+window.dragPicked.push({
+word:w,
+element:e.target
+});
+
+updateDrop();
+
+};
+
+function updateDrop(){
+
+document.getElementById("drop").innerHTML=
+window.dragPicked.map(x=>
+`<span class="dragWord">${x.word}</span>`
+).join(" ");
+
+}
+
+window.undoLast=function(){
+
+if(window.dragPicked.length===0) return;
+
+let last=window.dragPicked.pop();
+
+last.element.dataset.used="0";
+last.element.style.opacity="1";
+last.element.style.pointerEvents="auto";
+
+updateDrop();
+
+};
+
+window.resetDrag=function(){
+
+window.dragPicked.forEach(item=>{
+
+item.element.dataset.used="0";
+item.element.style.opacity="1";
+item.element.style.pointerEvents="auto";
+
+});
+
+window.dragPicked=[];
+
+updateDrop();
+
+};
+
+window.checkDrag=function(){
+
+let user=
+window.dragPicked.map(x=>x.word);
+
+if(user.join(" ")===window.correct.join(" ")){
+
+star();
+
+alert("✅ أحسنتِ");
+
+stage++;
+
+load();
+
+}else{
+
+alert("❌ الترتيب غير صحيح");
+
+}
+
+};
+/* ================= FINISH ================= */
+async function finish(){
+
+clearInterval(timer);
+
+let time=Math.floor((Date.now()-startTime)/1000);
+
+document.getElementById("game").classList.add("hidden");
+document.getElementById("finish").classList.remove("hidden");
+
+await addDoc(collection(db,"results"),{
+name:player,
+stars,
+time
+});
+
+let q=query(collection(db,"results"),orderBy("stars","desc"));
+let snap=await getDocs(q);
+
+let arr=[];
+snap.forEach(d=>arr.push(d.data()));
+
+arr.sort((a,b)=>{
+if(b.stars===a.stars) return a.time-b.time;
+return b.stars-a.stars;
+});
+
+document.getElementById("result").innerHTML=
+`
+<h2>🌟 ${player}</h2>
+
+<p>
+⭐ حصلتِ على
+<b>${stars}</b>
+نجمة
+</p>
+
+<p>
+⏱️ الوقت:
+${time} ثانية
+</p>
+
+<hr style="margin:20px 0">
+
+<h3>🏆 أفضل المشاركات</h3>
+
+`+
+
+arr.slice(0,5).map((x,i)=>
+`
+<div style="
+padding:10px;
+margin:8px 0;
+background:rgba(255,255,255,.08);
+border-radius:12px;
+">
+${i+1}️⃣
+${x.name}
+|
+⭐ ${x.stars}
+|
+⏱️ ${x.time}s
+</div>
+`
+).join("");
+}
+
+/* ================= EXIT ================= */
+
+window.exitGame=function(){
+
+if(confirm("هل تريدين الخروج من اللعبة؟")){
+
+document.body.innerHTML=`
+
+<div style="
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+font-family:Tahoma;
+background:linear-gradient(135deg,#1c0033,#4a148c,#7b1fa2);
+color:white;
+">
+
+<h1>💜 شكراً لمشاركتك 💜</h1>
+
+<p style="margin-top:15px">
+🌿 مبارك عليكم عيد الغدير الأغر 🌿
+</p>
+
+</div>
+
+`;
+
+}
+
+};
+
+</script>
+
+</body>
+</html>
