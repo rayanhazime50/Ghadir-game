@@ -267,27 +267,23 @@ line-height:1.7;
 from{opacity:0; transform:translateY(10px);}
 to{opacity:1; transform:translateY(0);}
 }
-
-body::before{
-content:"";
+.logoWatermark{
 position:fixed;
-inset:0;
-
-background:url('Logo.jpeg') center center;
-background-size:320px;
-background-repeat:no-repeat;
-
-opacity:.08;
-filter:grayscale(100%);
-
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:350px;
+opacity:.05;
 pointer-events:none;
-z-index:0;
+z-index:-1;
 }
+
 </style>
 
 </head>
 
 <body>
+<img src="Logo.jpeg" class="logoWatermark">
 <audio id="bgMusic" loop>
   <source src="ali.mp3" type="audio/mpeg">
 </audio>
