@@ -272,11 +272,16 @@ body::before{
 content:"";
 position:fixed;
 inset:0;
-background:url('Logo.jpeg') center center no-repeat;
-background-size:450px;
-opacity:.04;
+
+background:url('Logo.jpeg') center center;
+background-size:320px;
+background-repeat:no-repeat;
+
+opacity:.08;
+filter:grayscale(100%);
+
 pointer-events:none;
-z-index:-1;
+z-index:0;
 }
 </style>
 
