@@ -15,7 +15,6 @@ font-family:Tahoma;
 background:linear-gradient(135deg,#1c0033,#4a148c,#7b1fa2);
 height:100vh;
 display:flex;
-position: relative;
 justify-content:center;
 align-items:center;
 color:#fff;
@@ -266,23 +265,14 @@ line-height:1.7;
 from{opacity:0; transform:translateY(10px);}
 to{opacity:1; transform:translateY(0);}
 }
-.logoWatermark{
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-width:350px;
-opacity:.05;
-pointer-events:none;
-z-index:-1;
-}
+
 
 </style>
 
 </head>
 
 <body>
-<img src="Logo.jpeg" class="logoWatermark">
+
 <audio id="bgMusic" loop>
   <source src="ali.mp3" type="audio/mpeg">
 </audio>
