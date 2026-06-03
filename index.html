@@ -8,6 +8,7 @@
 <style>
 *{box-sizing:border-box}
 
+
 body{
 margin:0;
 font-family:Tahoma;
@@ -29,6 +30,39 @@ animation:bgMove 12s ease infinite;
 50%{background-position:100% 50%;}
 100%{background-position:0% 50%;}
 }
+
+body::after{
+content:"✦ Designed by Rayan Hazimeh ✦";
+
+position:fixed;
+bottom:14px;
+left:50%;
+transform:translateX(-50%);
+
+font-family:Georgia, serif;
+font-size:11px;
+font-style:italic;
+letter-spacing:1.5px;
+
+background:linear-gradient(
+90deg,
+rgba(209,163,255,.8),
+rgba(255,255,255,.95),
+rgba(209,163,255,.8)
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+opacity:.75;
+
+pointer-events:none;
+}
+@keyframes signature{
+0%,100%{opacity:.3;}
+50%{opacity:1;}
+}
+
 /* ===== START ===== */
 .start{
 text-align:center;
@@ -260,11 +294,11 @@ z-index:-1;
 <img src="Logo.jpeg" class="logoImg" alt="شعار الكشافة">
 </div>
 
-<div class="title">💜 تحدّي عيد الغدير</div><div class="subtitle">✨ اختبار معرفي تفاعلي ✨</div>
+<div class="title">🔥تحدّي عيد الغدير</div><div class="subtitle">✨ اختبار معرفي تفاعلي ✨</div>
 
 <div class="desc">  
 <hh2> جاهزي؟!!!</h2>
-<br><br>🧠ركزي وكمّلي كل المراحل بسرعة  
+<br><br>🧠ركزي وكملي كل المراحل بسرعة  
 <br><br>🏆لتكوني من المراتب الأولى و على  لائحة الشرف باللعبة 
 </div>
 
